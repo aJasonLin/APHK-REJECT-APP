@@ -1,5 +1,4 @@
 import { S3Client } from "@aws-sdk/client-s3";
-import config from "./config.js"
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import fs from "fs"
 import * as dotenv from 'dotenv'

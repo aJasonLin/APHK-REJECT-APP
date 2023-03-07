@@ -129,6 +129,19 @@ const fileGet = async (authClient, fileId) => {
     return res.data
 
 }
+
+const cleanOutput = () => {
+    fs.readdir("output", (err, files) => {
+        files.forEach(async (file) => {
+            fs.unlink(`output\\${file}`, function (err) {            
+                if (err) {                                                 
+                    console.error(err);                                    
+                }                                                          
+               console.log('File has been Deleted');                           
+            });
+        });
+    })
+}
 // authorize().then((client)=>fileGet(client,"16_BI7sW55YGUF3vdibvy8krha-x7NMbW")).then(arange)
 // .then((res)=>{
 
@@ -136,6 +149,7 @@ const fileGet = async (authClient, fileId) => {
 // .catch(console.error);
 // authorize().then((client) => exportCSV(client, "1tFnRsy_2g6lNnVDUlkbCNJXaHWWf_rrwIczx062DtvA")).then(saveAsCsv).catch(console.error)
 const main = async () => {
+    cleanOutput();
     const client = await authorize();
     const folder = (await listFiles(client, process.env.DRIVE_FOLDER_ID, 'application/vnd.google-apps.folder', '1'))[0]
     let files = await listFiles(client, folder.id, 'text/csv', "100")
