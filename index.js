@@ -160,19 +160,28 @@ const main = async () => {
             const csvArranged = arrange(csv)
             Object.entries(csvArranged).forEach((obj) => {
                 if (obj[1].split("\n").length > 1) {
-                    saveAsCsv(obj[1], obj[0] + "_" + file.name)
+                    saveAsCsv(obj[1], obj[0] + "_" + ((file.name).split("APHK"))[1])
                 }
 
             })
         })
         console.log("Uploading to S3")
+        function sleep(ms) {
+            return new Promise((resolve) => {
+              setTimeout(resolve, ms);
+            });
+          }
+        await sleep(2000)
         fs.readdir("output", (err, files) => {
+            if (err)
+              console.log(err);
             files.forEach(async (file) => {
+                console.log(file)
                 const bucketParams = {
                     Bucket: process.env.BUCKET_NAME,
                     // Specify the name of the new object. For example, 'index.html'.
                     // To create a directory for the object, use '/'. For example, 'myApp/package.json'.
-                    Key: `${(file.split('_'))[0]}/${file}`,
+                    Key: `APHK_REJECT_RE/${file}`,
                     // Content of the new object.
                     Body: fs.createReadStream(`./output/${file}`),
                 };

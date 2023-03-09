@@ -24,7 +24,6 @@ export const run = async (bucketParams) => {
 
   try {
     const data = await s3Client.send(new PutObjectCommand(bucketParams));
-    return data; // For unit tests.
     console.log(
       "Successfully uploaded object: " +
       bucketParams.Bucket +
