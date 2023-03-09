@@ -160,7 +160,7 @@ const main = async () => {
             const csvArranged = arrange(csv)
             Object.entries(csvArranged).forEach((obj) => {
                 if (obj[1].split("\n").length > 1) {
-                    saveAsCsv(obj[1], obj[0] + "_" + ((file.name).split("APHK"))[1])
+                    saveAsCsv(obj[1], obj[0] +  ((file.name).split("APHK"))[1])
                 }
 
             })
